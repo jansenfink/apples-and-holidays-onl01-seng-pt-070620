@@ -1,4 +1,4 @@
-def second_supply_for_fourth_of_july(holiday_hash)
+def second_supply_for_fourth_of_july(holiday_supplies)
    {
      :winter => {
        :christmas => ["Lights", "Wreath"],
@@ -14,34 +14,34 @@ def second_supply_for_fourth_of_july(holiday_hash)
        :memorial_day => ["BBQ"]
      }
    }
-  holiday_hash[:summer][:fourth_of_july][1]
+  holiday_supplies[:summer][:fourth_of_july][1]
 end
 
-def add_supply_to_winter_holidays(holiday_hash, supply)
-  holiday_hash[:winter].each do |holiday, decorations|
+def add_supply_to_winter_holidays(holiday_supplies, supply)
+  holiday_supplies[:winter].each do |holiday, decorations|
     decorations << supply
   end
 end
 
-def add_supply_to_memorial_day(holiday_hash, supply)
-  holiday_hash[:spring][:memorial_day] << supply
+def add_supply_to_memorial_day(holiday_supplies, supply)
+  holiday_supplies[:spring][:memorial_day] << supply
 end
 
-def add_new_holiday_with_supplies(holiday_hash, season, holiday_name, supply_array)
+def add_new_holiday_with_supplies(holiday_supplies, season, holiday_name, supply_array)
   
-  holiday_hash[season][holiday_name] = supply_array
-  holiday_hash
+  holiday_supplies[season][holiday_name] = supply_array
+  holiday_supplies
 end
 
-def all_winter_holiday_supplies(holiday_hash)
-  array = holiday_hash[:winter].map do |holiday, supply|
+def all_winter_holiday_supplies(holiday_supplies)
+  array = holiday_supplies[:winter].map do |holiday, supply|
   supply
 end
 array.flatten
 end
 
-def all_supplies_in_holidays(holiday_hash)
-  holiday_hash.each do |season, holiday|
+def all_supplies_in_holidays(holiday_supplies)
+  holiday_supplies.each do |season, holiday|
     puts "#{season.capitalize}:"
     holiday.each do |holiday, supplies|
     puts "  #{holiday.to_s.split("_").map{|x| x.capitalize}.join(" ")}: #{supplies.join(", ")}"
@@ -50,55 +50,9 @@ end
 end
 
 def all_holidays_with_bbq(holiday_hash)
-  holiday_hash.map do |season, holiday|
+  holiday_supplies.map do |season, holiday|
     holiday.map do |holiday, supply|
       holiday if supply.include?("BBQ")
     end
   end.flatten.compact
 end
-
-def add_new_season_and_holiday_with_supplies(holiday_hash, season, holiday_name, supply_array)
-  holiday_hash[season] = {holiday_name => supply_array} # the new echelon being created is to the left of the equals sign.
-  holiday_hash
-end
-
-mitzvos = ["seder", "matzah", "hagaddah"]
-add_new_season_and_holiday_with_supplies(holiday_supplies, :aviv, :pesach, mitzvos)
-
-
-def all_winter_holiday_supplies(holiday_hash)
-
-  holiday_hash[:winter].values.flatten
-end
-
-all_winter_holiday_supplies(holiday_supplies)
-
-
-def all_supplies_in_holidays(holiday_hash)
-
-  holiday_hash.each do | season, holiday|
-     puts "#{season.capitalize}:"
-     holiday.each do |holiday, item|
-       puts "  #{holiday.to_s.split("_").map {|i| i.capitalize}.join(" ")}: #{item.join(", ")}"
-     end
-  end 
-end
-
-all_supplies_in_holidays(holiday_supplies)
-
-
-
-def all_holidays_with_bbq(holiday_hash)
-
-  holiday_hash.map do |season, holiday|
-    holiday.map do |holiday, item|
-      holiday if item.include?("BBQ")
-    end 
-  end.flatten.compact
-end
-
-all_holidays_with_bbq(holiday_supplies)
-
-
-
-
